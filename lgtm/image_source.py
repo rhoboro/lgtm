@@ -23,3 +23,20 @@ class RemoteImage:
         data = requests.get(self._url)
         # バイトデータをファイルオブジェクトに変換
         return BytesIO(data.content)
+
+
+class _LoremFlickr(RemoteImage):
+    """キーワード検索で画像を取得する"""
+
+    LOREM_FLICKR_URL = "https://loremflickr.com"
+    WIDTH = 800
+    HEIGHT = 600
+
+    def __init__(self, keyword):
+        super().__init__(self._build_url(keyword))
+
+    def _build_url(self, keyword):
+        return f"{self.LOREM_FLICKR_URL}/" f"{self.WIDTH}/{self.HEIGHT}/{keyword}"
+
+
+KeywordImage = _LoremFlickr
