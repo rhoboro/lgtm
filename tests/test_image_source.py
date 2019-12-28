@@ -48,3 +48,39 @@ class KeywordImageTest(unittest.TestCase):
             self.assertEqual(expected, actual)
             # 取得時のURLの確認
             mock.assert_called_once_with("https://loremflickr.com/800/600/dog")
+
+
+class ImageSourceTest(unittest.TestCase):
+    def test_http(self):
+        from lgtm.image_source import ImageSource, RemoteImage
+
+        actual = ImageSource("http://www.example.com")
+        self.assertEqual(RemoteImage, type(actual))
+
+    def test_https(self):
+        from lgtm.image_source import ImageSource, RemoteImage
+
+        actual = ImageSource("https://www.example.com")
+        self.assertEqual(RemoteImage, type(actual))
+
+    def test_localpath(self):
+        from lgtm.image_source import ImageSource, LocalImage
+
+        path = os.path.dirname(__file__) + "/data/test_image.jpg"
+        actual = ImageSource(path)
+        self.assertEqual(LocalImage, type(actual))
+
+    def test_keyword(self):
+        from lgtm.image_source import ImageSource, KeywordImage
+
+        actual = ImageSource("dog")
+        self.assertEqual(KeywordImage, type(actual))
+
+
+class GetImageTest(unittest.TestCase):
+    def test_get_image(self):
+        from lgtm.image_source import get_image
+
+        with patch("lgtm.image_source.ImageSource") as mock:
+            get_image("dog")
+            mock.assert_called_once_with("dog")
