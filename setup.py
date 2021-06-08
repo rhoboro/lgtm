@@ -8,7 +8,7 @@ setup(
     package_data={'lgtm': ['data/*']},
     install_requires=[
         'Click~=7.0',
-        'Pillow~=6.2.0',
+        'Pillow>=6.2,<8.3',
         'requests~=2.22.0',
     ],
     entry_points={
