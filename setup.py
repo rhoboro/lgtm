@@ -9,7 +9,7 @@ setup(
     install_requires=[
         'Click~=7.0',
         'Pillow~=6.2.0',
-        'requests~=2.22.0',
+        'requests>=2.22,<2.32',
     ],
     entry_points={
         'console_scripts': [
